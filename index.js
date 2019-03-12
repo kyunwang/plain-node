@@ -7,6 +7,15 @@ const server = createServer();
 
 // Node handles all request by a single request handler
 server.on('request', (req, res) => {
+	// simpleRouting(req, res);
+	HTTPMethods(req, res);
+});
+
+server.listen(PORT, () => {
+	console.log(`Starting server at port: ${PORT}`);
+});
+
+function simpleRouting(req, res) {
 	switch (req.url) {
 		case '/':
 			// Most simple hello world
@@ -35,8 +44,18 @@ server.on('request', (req, res) => {
 			// res.statucMessage = 'Content is not found';
 			res.end();
 	}
-});
+}
 
-server.listen(PORT, () => {
-	console.log(`Starting server at port: ${PORT}`);
-});
+function HTTPMethods(req, res) {
+	if (req.method === 'GET') {
+		return res.end('GET method, GET a book!');
+	} else if (req.method === 'POST') {
+		// Create something new
+		return res.end('POST, success!');
+	} else {
+		console.log(res.statusCode);
+
+		res.statusCode = 400;
+		return res.end('Unsupported method');
+	}
+}
