@@ -7,8 +7,9 @@ const server = createServer();
 
 // Node handles all request by a single request handler
 server.on('request', (req, res) => {
-	// simpleRouting(req, res);
-	HTTPMethods(req, res);
+	simpleRouting(req, res);
+	// HTTPMethods(req, res);
+	// handleCookies(req, res);
 });
 
 server.listen(PORT, () => {
@@ -37,12 +38,14 @@ function simpleRouting(req, res) {
 			res.setHeader('content-type', 'application/json');
 			// plain object cannot be send, instead buffers or strings will do
 			res.end(JSON.stringify({ data: 42 }));
+			break;
 		case '/status':
 			// Setting statuscodes - two ways
-			res.writeHead(204, 'Oops no content here.');
-			// res.statusCode = 204;
-			// res.statucMessage = 'Content is not found';
+			// res.writeHead(204, 'Oops no content here.');
+			res.statusCode = 204;
+			res.statucMessage = 'Content is not found';
 			res.end();
+			break;
 	}
 }
 
@@ -59,3 +62,5 @@ function HTTPMethods(req, res) {
 		return res.end('Unsupported method');
 	}
 }
+
+function handleCookies(req, res) {}
