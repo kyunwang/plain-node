@@ -16,7 +16,12 @@ server.on('request', (req, res) => {
 	// res.end();
 
 	// Stream piping for res objext and other streams. The piped stream will end automatically when the original one ends
-	fs.createReadStream(__filename).pipe(res);
+	// fs.createReadStream(__filename).pipe(res);
+
+	// Setting headers
+	res.setHeader('content-type', 'application/json');
+	// plain object cannot be send, instead buffers or strings will do
+	res.end(JSON.stringify({ data: 42 }));
 });
 
 server.listen(PORT, () => {
