@@ -19,9 +19,15 @@ server.on('request', (req, res) => {
 	// fs.createReadStream(__filename).pipe(res);
 
 	// Setting headers
-	res.setHeader('content-type', 'application/json');
+	// res.setHeader('content-type', 'application/json');
 	// plain object cannot be send, instead buffers or strings will do
-	res.end(JSON.stringify({ data: 42 }));
+	// res.end(JSON.stringify({ data: 42 }));
+
+	// Setting statuscodes - two ways
+	res.writeHead(204, 'Oops no content here.');
+	// res.statusCode = 204;
+	// res.statucMessage = 'Content is not found';
+	res.end();
 });
 
 server.listen(PORT, () => {
